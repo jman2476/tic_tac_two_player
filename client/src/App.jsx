@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-// import ws from './socket'
 
 /* TODO: Add updates to the game:
   X 1. For current move, show "You are at move #" instead of button

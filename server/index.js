@@ -1,17 +1,23 @@
-import { WebSocketServer } from 'ws'
+import { Server } from 'socket.io'
+import express from 'express'
+import { createServer } from 'http'
+import cors from 'cors'
 
-const wss = new WebSocketServer({ port: 4500 })
+const app = express()
 
-wss.on('connection', function connection(ws) {
-    ws.on('error', (error) => {
-        console.log('connection error:', error)
-    })
-
-    ws.on('wsClientError', console.log('clienterror'))
-
-    ws.on('message', function(data) {
-        console.log('received %s', data)
-    })
-
-    ws.send('something')
+const httpServer = createServer(app)
+const port = 4500
+const wsServer = new Server(httpServer, {
+    cors: {
+        origin: 'http://127.0.0.1:5173'
+    }
 })
+
+// wsServer.engine.use(cors({origin: 'http://127.0.0.1'}))
+
+
+wsServer.on('connection', (socket) => {
+    console.log('connection established', socket.id)
+})
+
+httpServer.listen(port)
