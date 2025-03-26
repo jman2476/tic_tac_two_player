@@ -1,0 +1,18 @@
+{
+  "name": "t3_websocket_server",
+  "version": "0.0.0",
+  "description": "ws server for tic tac toe game",
+  "license": "MIT",
+  "author": "jeremyM",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
