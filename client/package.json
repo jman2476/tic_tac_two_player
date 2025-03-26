@@ -2,7 +2,6 @@
   "name": "tic_tac_two_player",
   "version": "0.0.1",
   "description": "two player tic tac toe client side",
-  
   "type": "module",
   "scripts": {
     "dev": "vite"
@@ -11,7 +10,8 @@
   "license": "MIT",
   "dependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
