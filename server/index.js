@@ -1,7 +1,6 @@
 import { Server } from 'socket.io'
 import express from 'express'
 import { createServer } from 'http'
-import cors from 'cors'
 
 const app = express()
 
@@ -13,8 +12,7 @@ const wsServer = new Server(httpServer, {
     }
 })
 
-// wsServer.engine.use(cors({origin: 'http://127.0.0.1'}))
-
+app.get('/', (req, res) => {res.send("hello")})
 
 wsServer.on('connection', (socket) => {
     console.log('connection established', socket.id)
