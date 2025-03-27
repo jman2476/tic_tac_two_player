@@ -73,8 +73,12 @@ export default function Game() {
     const [listIsAscending, setListIsAscending] = useState(true)
     const xIsNext = currentMove % 2 === 0
     const currentSquares = history[currentMove][0]
+    const [connStatus, setConnStatus] = useState('Not connected')
 
-    
+    socket.emit('message', 'game component rendered')
+    socket.on('message', (args) => {
+        setConnStatus(args)
+    })
 
     function handlePlay(nextSquares, nextIndex) {
         const nextHistory = [...history.slice(0, currentMove + 1), [nextSquares, nextIndex]]
@@ -124,6 +128,7 @@ export default function Game() {
                 <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
             </div>
             <div className='game-info'>
+                <div className='socket-status'>{connStatus}</div>
                 <button className="toggle" onClick={handleToggle}>List direction</button>
                 <ul>{listIsAscending? moves : reversedMoves}</ul>
             </div>

@@ -6,4 +6,8 @@ socket.on('connect', () => {
     console.log('connected to server', socket.id)
 })
 
+socket.on('message', (args) => {
+    console.log(args)
+})
+
 export {socket}
