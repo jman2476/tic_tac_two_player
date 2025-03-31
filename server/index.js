@@ -1,6 +1,7 @@
 import { Server } from 'socket.io'
 import express from 'express'
 import { createServer } from 'http'
+import sequelize from './config/connection.js'
 
 const app = express()
 
@@ -11,7 +12,7 @@ const wsServer = new Server(httpServer, {
         origin: ['http://127.0.0.1:5173', 'http://127.0.0.1:8005']
     }
 })
-// let history_Main =  
+ 
 
 app.get('/', (req, res) => {res.send("hello")})
 
@@ -51,3 +52,14 @@ function historyChecker (history, newHistory) {
 
     return false
 }
+
+async function checkSequelize(){
+    try {
+        await sequelize.authenticate()
+        console.log('Connection to db established')
+    } catch (err) {
+        console.err('Unable to connect to db:', err)
+    }
+}
+
+checkSequelize()
