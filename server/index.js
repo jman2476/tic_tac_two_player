@@ -11,6 +11,7 @@ const wsServer = new Server(httpServer, {
         origin: ['http://127.0.0.1:5173', 'http://127.0.0.1:8005']
     }
 })
+// let history_Main =  
 
 app.get('/', (req, res) => {res.send("hello")})
 
@@ -22,10 +23,31 @@ wsServer.on('connection', (socket) => {
     socket.on('message', (args) => {
         console.log(args)
     })
+
+    socket.on('history', (args) => {
+        console.log('histMain', history_Main)
+        if (!history_Main) history_Main = [...args]
+        else if (historyChecker(history_Main, args)) {
+            console.log('history accurate')
+        }
+        console.log('history\n', args)
+    })
 })
 
 wsServer.on('error', (err) => {
-    console.log(err)
+    console.log(err) 
 })
 
 httpServer.listen(port)
+
+function historyChecker (history, newHistory) {
+    const length = history.length
+    const newLength = newHistory.length
+
+    console.log('hist', history)
+
+    if (length <= 1) return false
+    else if( history[length-1][0] === newHistory[newLength-2][1] && history[length-1][0] === newHistory[newLength-2][1] ) return true
+
+    return false
+}

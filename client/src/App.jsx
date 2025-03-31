@@ -24,6 +24,7 @@ function Square({ value, onSquareClick, isHighlit }) {
 
 function Board({ xIsNext, squares, onPlay}) {
     console.log('Board component', squares)
+    socket.emit('message', squares)
     function handleClick(index) {
         if (squares[index] || calculateWinner(squares)[0]) return // returns from function if square is filled or a player has won
         const nextSquares = squares.slice()
@@ -84,6 +85,7 @@ export default function Game() {
         const nextHistory = [...history.slice(0, currentMove + 1), [nextSquares, nextIndex]]
         setHistory(nextHistory)
         setCurrentMove(nextHistory.length - 1)
+        socket.emit('history', nextHistory)
     }
 
     function jumpTo(nextMove){
