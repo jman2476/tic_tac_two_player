@@ -2,6 +2,7 @@ import { Server } from 'socket.io'
 import express from 'express'
 import { createServer } from 'http'
 import sequelize from './config/connection.js'
+import { User, Game} from './models/index.js'
 
 const app = express()
 
