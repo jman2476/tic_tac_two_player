@@ -85,6 +85,7 @@ export default function Game() {
         const nextHistory = [...history.slice(0, currentMove + 1), [nextSquares, nextIndex]]
         setHistory(nextHistory)
         setCurrentMove(nextHistory.length - 1)
+        console.log(nextHistory)
         socket.emit('history', nextHistory)
     }
 

@@ -3,6 +3,7 @@ import express from 'express'
 import { createServer } from 'http'
 import sequelize from './config/connection.js'
 import { User, Game} from './models/index.js'
+import { gameController } from './controllers/index.js'
 
 const app = express()
 
@@ -26,13 +27,16 @@ wsServer.on('connection', (socket) => {
         console.log(args)
     })
 
-    socket.on('history', (args) => {
-        console.log('histMain', history_Main)
-        if (!history_Main) history_Main = [...args]
-        else if (historyChecker(history_Main, args)) {
-            console.log('history accurate')
-        }
-        console.log('history\n', args)
+    socket.on('history', async (args) => {
+        // console.log('histMain', history_Main)
+        // if (!history_Main) history_Main = [...args]
+        // else if (historyChecker(history_Main, args)) {
+        //     console.log('history accurate')
+        // }
+        // console.log('history\n', args)
+        const game = await Game.findByPk(1)
+        console.log('Game to update:', game)
+        await gameController.updateHistory(args, game)
     })
 })
 
